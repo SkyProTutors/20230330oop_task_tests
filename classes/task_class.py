@@ -1,9 +1,12 @@
 class Animal:
+    """Базовый класс"""
 
-    def __init__(self, specie):
+    def __init__(self, specie: str):
+        """Инициализия видом класса"""
         self.specie = specie
 
-    def move(self, paws_count: int = None):
+    def move(self, paws_count: int = None) -> str:
+        """Метод move в который необходимо передать данные о количестве лап"""
         if isinstance(paws_count, int):
             if paws_count == 0:
                 return f"{self.specie}, плавает"
@@ -26,27 +29,27 @@ class Animal:
 
 
 class Pet(Animal):
-    def __init__(self, specie, name):
-        Animal.__init__(self, specie)
+    """Класс наследник"""
+    def __init__(self, specie: str, name: str):
+        super().__init__(specie)
         self.name = name
 
-    def pet_move(self, paws_count):
-        move = Animal.move(self, paws_count)
+    def pet_move(self, paws_count: int) -> str:
+        """Метод класса наследника основанный на методе класса родителя"""
+        move = super().move(paws_count)
         return f"{self.name}, {move}"
 
     def __repr__(self):
-        return f"{self.specie}, {self.name}"
+        return f"{self.specie}, {self.name} экземпляр класса Pet"
 
 
 
 if __name__ == "__main__":
     dog = Pet("собака", "Шарик")
-    print(dog.move(4))
     print(dog.pet_move(4))
 
     ant = Pet("муравей", "Энтц")
-    print(ant.move(6))
     print(ant.pet_move(6))
 
-    print(Animal("собака"))
-    print(Pet("собака", "Шарик"))
+    pet = Pet("собака", "Шарик")
+    print(pet)
